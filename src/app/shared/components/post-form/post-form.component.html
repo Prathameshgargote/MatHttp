@@ -1,0 +1,82 @@
+<mat-card>
+  <mat-card-header class="d-flex justify-content-between">
+    <mat-card-title>{{iseditmode?"Update post":"Add Post"}}</mat-card-title>
+   <strong class="close" (click)="onclose()">X</strong>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="postForm" (ngSubmit)="OnSubmit()">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Name</mat-label>
+        <input type="text" formControlName="name" matInput />
+      </mat-form-field>
+
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Client</mat-label>
+        <input type="text" formControlName="client" matInput />
+      </mat-form-field>
+
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Code</mat-label>
+        <input type="text" formControlName="code" matInput />
+      </mat-form-field>
+
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Email</mat-label>
+        <input type="text" formControlName="email" matInput />
+      </mat-form-field>
+
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Contact</mat-label>
+        <input type="text" formControlName="contact" matInput />
+      </mat-form-field>
+
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Gst No</mat-label>
+        <input type="text" formControlName="GstNo" matInput />
+      </mat-form-field>
+
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>PAN No</mat-label>
+        <input type="text" formControlName="PanNo" matInput />
+      </mat-form-field>
+
+      <div class="row">
+        <mat-radio-group aria-label="Select an option"       formControlName="gender">
+          <mat-radio-button
+      
+            [value]="gender"
+            *ngFor="let gender of ['Male', 'Female', 'Other']"
+            >{{ gender }}</mat-radio-button
+          >
+        </mat-radio-group>
+      </div>
+
+      <mat-card>
+        <mat-card-subtitle>Address Datail </mat-card-subtitle>
+        <mat-card-content formGroupName="adress">
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Country</mat-label>
+            <input type="text" formControlName="Country" matInput />
+          </mat-form-field>
+
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>state</mat-label>
+            <input type="text" formControlName="state" matInput />
+          </mat-form-field>
+
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>city</mat-label>
+            <input type="text" formControlName="city" matInput />
+          </mat-form-field>
+
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>pincode</mat-label>
+            <input type="text" formControlName="pincode" matInput />
+          </mat-form-field>
+        </mat-card-content>
+      </mat-card>
+
+      <button mat-raised-button color="primary">{{iseditmode?"update Post":"Add Post"}}</button>
+    </form>
+  </mat-card-content>
+</mat-card>

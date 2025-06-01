@@ -1,0 +1,12 @@
+
+<div class="row">
+    <div class="col-md-12 ">
+       <div class="button text-center m-5">
+          <button mat-raised-button color="accent" (click)="Addpost()">Add Post</button>
+       </div>
+    </div>
+
+    <div class="col-md-6 offset-md-3">
+        <app-post-card [client]="client" *ngFor="let client of ClientArr"></app-post-card>
+    </div>
+</div>
