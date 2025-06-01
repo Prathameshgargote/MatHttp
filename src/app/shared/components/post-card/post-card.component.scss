@@ -1,0 +1,16 @@
+.card {
+  background-color: rgb(214, 229, 241);
+
+  .content {
+    background-color: rgb(106, 245, 215);
+    border-radius: 5px;
+    p {
+      padding: 5px;
+    }
+  }
+
+  .header {
+    background-color: rgb(106, 245, 215);
+    border-radius: 5px;
+  }
+}

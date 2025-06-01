@@ -1,9 +1,20 @@
 <div class="row">
-    <div class="col-md-12 text-right">
-        <button mat-icon-button  color="primary" (click)="onedit()"><mat-icon>edit</mat-icon></button>
-        <button mat-icon-button color="warn" ><mat-icon (click)="Onremove()">delete</mat-icon></button>
-
+  <div class="col-md-12 m-5 d-flex justify-content-between">
+    <div class="back_button">
+      <button mat-icon-button color="primary" >
+        <mat-icon routerLink="/postdash" >keyboard_arrow_left</mat-icon>
+      </button>
+      Go to Back
     </div>
+    <div class="button">
+      <button mat-icon-button color="primary" (click)="onedit()">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="warn">
+        <mat-icon (click)="Onremove()">delete</mat-icon>
+      </button>
+    </div>
+  </div>
   <div class="col-md-6 offset-md-3">
     <table class="table table-bordered">
       <thead>
@@ -15,7 +26,9 @@
       <tbody>
         <tr *ngFor="let item of ClientObj | keyvalue">
           <ng-container *ngIf="!isObject(item.value)">
-            <td>{{ item.key }}</td>
+            <td>
+              <strong>{{ item.key }}</strong>
+            </td>
             <td>{{ item.value }}</td>
           </ng-container>
         </tr>

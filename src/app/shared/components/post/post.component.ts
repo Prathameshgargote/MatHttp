@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from '../../services/post.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PostFormComponent } from '../post-form/post-form.component';
+import { GetconfirmComponent } from '../getconfirm/getconfirm.component';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-post',
@@ -16,7 +18,8 @@ export class PostComponent implements OnInit {
     private _postservice: PostService,
     private _activetRoute: ActivatedRoute,
     private _matdailog: MatDialog,
-    private _router: Router
+    private _router: Router,
+    private _snackbar: SnackbarService
   ) {}
 
   ngOnInit(): void {
@@ -53,9 +56,22 @@ export class PostComponent implements OnInit {
   }
 
   Onremove() {
-    this._postservice.remove(this.ClientObj).subscribe((res) => {
-      console.log(res);
-      this._router.navigate(['postdash']);
+    let matdailogref = this._matdailog.open(GetconfirmComponent, {
+      width: '500px',
+      disableClose: true,
+      data: `Are you sure ! You want to remove ${this.ClientObj.name}`,
+    });
+
+    matdailogref.afterClosed().subscribe((res) => {
+      if (res) {
+        this._postservice.remove(this.ClientObj).subscribe((res) => {
+          console.log(res);
+          this._router.navigate(['postdash']);
+          this._snackbar.opensnack(
+            ` the client Remove ${this.ClientObj.name} is Succesfully`
+          );
+        });
+      }
     });
   }
 }

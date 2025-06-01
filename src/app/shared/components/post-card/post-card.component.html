@@ -1,11 +1,12 @@
-<mat-card class="mb-4">
-  <mat-card-header>
+<mat-card class="mb-4 mat-elevation-z8 card">
+  <mat-card-header class="header">
     <mat-card-title>
       {{ client.name }}
     </mat-card-title>
   </mat-card-header>
-  <mat-card-content>
-    <p>Card name:{{ client.client }}</p>
+  <mat-card-content class="content">
+    <p>PAN No:{{ client.PanNo }}</p>
+    <p>GST No:{{ client.GstNo }}</p>
   </mat-card-content>
   <mat-card-actions>
     <button class="btn btn-outline-info btn-block" [routerLink]="client.Id">View More</button>

@@ -8,6 +8,7 @@ import {
 import { PostService } from '../../services/post.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-post-form',
@@ -23,7 +24,8 @@ export class PostFormComponent implements OnInit {
     private _activatedrouter: ActivatedRoute,
     private _matDailogref: MatDialogRef<PostFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private Route: Router
+    private Route: Router,
+    private _snackbar: SnackbarService
   ) {}
 
   ngOnInit(): void {
@@ -59,21 +61,29 @@ export class PostFormComponent implements OnInit {
   }
 
   OnSubmit() {
-    if (this.iseditmode) {
-      let updateObj = { ...this.postForm.value, Id: this.postObj.Id };
-      console.log(updateObj);
-      this.Postservice.updatePost(updateObj).subscribe((res) => {
-        this._matDailogref.close(updateObj);
-        this.Route.navigate(['postdash']);
-      });
-    } else {
-      let clientObj = this.postForm.value;
-      console.log(clientObj);
-      this.Postservice.AddClient(clientObj).subscribe((res) => {
-        console.log(res);
-        console.log({ ...clientObj, Id: res.name });
-        this._matDailogref.close({ ...clientObj, Id: res.name });
-      });
+    if (this.postForm.valid) {
+      if (this.iseditmode) {
+        let updateObj = { ...this.postForm.value, Id: this.postObj.Id };
+        console.log(updateObj);
+        this.Postservice.updatePost(updateObj).subscribe((res) => {
+          this._matDailogref.close(updateObj);
+          this._snackbar.opensnack(
+            `The client ${updateObj.name} Update Successfully`
+          );
+          this.Route.navigate(['postdash']);
+        });
+      } else {
+        let clientObj = this.postForm.value;
+        console.log(clientObj);
+        this.Postservice.AddClient(clientObj).subscribe((res) => {
+          console.log(res);
+          console.log({ ...clientObj, Id: res.name });
+          this._matDailogref.close({ ...clientObj, Id: res.name });
+          this._snackbar.opensnack(
+            `The client ${clientObj.name} Added Successfully`
+          );
+        });
+      }
     }
   }
 
